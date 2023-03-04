@@ -74,17 +74,25 @@
 }
 .hideMenuNav {
   opacity: 0;
+  display: none;
   transform: translateX(100%);
 }
 
 .animClose {
   animation: 0.2s ease-out 0s 1 slideClose;
   opacity: 1;
+  display: flex;
 }
 
 .showMenuNav {
   display: flex;
   animation: 0.2s ease-out 0s 1 slide;
+}
+
+@media (prefers-reduced-motion) {
+  .animClose {
+    animation: none;
+  }
 }
 
 @keyframes slide {
@@ -116,7 +124,7 @@ function handleClose() {
   animClose.value = true;
   setTimeout(() => {
     animClose.value = false;
-  }, 1000);
+  }, 500);
   setIsNavOpen(false);
 }
 </script>
