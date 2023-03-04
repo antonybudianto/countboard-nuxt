@@ -1,6 +1,6 @@
 {
-  "name": "Count Anything",
-  "short_name": "CountAnything",
+  "name": "CountBoard",
+  "short_name": "CountBoard",
   "icons": [
     {
       "src": "/icons/android-chrome-192x192.png",

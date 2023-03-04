@@ -1,12 +1,13 @@
 <template>
+  <Title>CountBoard | Simple counter app for your day!</Title>
   <Meta
     name="viewport"
     content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
   />
-  <Meta name="application-name" content="Count Anything" />
+  <Meta name="application-name" content="CountBoard" />
   <Meta name="apple-mobile-web-app-capable" content="yes" />
   <Meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <Meta name="apple-mobile-web-app-title" content="Count Anything" />
+  <Meta name="apple-mobile-web-app-title" content="CountBoard" />
   <Meta name="apple-touch-fullscreen" content="yes" />
   <Meta
     name="apple-mobile-web-app-status-bar-style"
@@ -183,10 +184,7 @@
     href="splash_screens/8.3__iPad_Mini_portrait.png"
   />
 
-  <Meta
-    name="description"
-    content="Count Anything, easy daily chores dashboard"
-  />
+  <Meta name="description" content="CountBoard, easy daily chores dashboard" />
   <Meta name="mobile-web-app-capable" content="yes" />
   <Meta name="theme-color" content="#000000" />
   <Link rel="manifest" href="/manifest.json" />

@@ -1,5 +1,4 @@
 <template>
-  <Seo />
   <div
     class="container mx-auto min-h-screen flex flex-col justify-between mt-7"
   >

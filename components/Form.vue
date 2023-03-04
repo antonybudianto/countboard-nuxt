@@ -16,7 +16,7 @@
       <button
         type="submit"
         :disabled="newItem === ''"
-        class="bg-blue-500 rounded text-white p-2 disabled:opacity-50 w-1/5"
+        class="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-400 hover:to-blue-600 rounded text-white p-2 disabled:opacity-50 w-1/5"
       >
         Add
       </button>

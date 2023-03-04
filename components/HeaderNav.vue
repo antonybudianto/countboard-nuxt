@@ -38,10 +38,10 @@
         <ul
           class="MENU-LINK-MOBILE-OPEN flex flex-col items-center justify-between min-h-[10px]"
         >
-          <li class="border-b border-gray-400 my-8 uppercase font-bold text-lg">
+          <li class="my-8 uppercase font-bold text-lg">
             <NuxtLink to="/" @click="(_) => setIsNavOpen(false)">Home</NuxtLink>
           </li>
-          <li class="border-b border-gray-400 my-8 uppercase font-bold text-lg">
+          <li class="my-8 uppercase font-bold text-lg">
             <NuxtLink to="/config">Config</NuxtLink>
           </li>
         </ul>
@@ -50,15 +50,19 @@
 
     <ul class="DESKTOP-MENU hidden space-x-8 lg:flex">
       <li>
-        <NuxtLink to="/">Home</NuxtLink>
+        <NuxtLink class="hover:underline" to="/">Home</NuxtLink>
       </li>
       <li>
-        <NuxtLink to="/config">Config</NuxtLink>
+        <NuxtLink class="hover:underline" to="/config">Config</NuxtLink>
       </li>
     </ul>
   </nav>
 </template>
 <style scoped>
+a.router-link-exact-active {
+  color: #00c58e;
+  border-bottom: 1px solid #00c58e;
+}
 .menu {
   display: block;
   position: absolute;
