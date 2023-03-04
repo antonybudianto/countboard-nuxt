@@ -6,8 +6,8 @@
     <div
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-5"
     >
-      <Loading v-if="loading" />
-      <div v-if="items.length === 0">
+      <Loading v-if="state.loading" />
+      <div v-if="state.items.length === 0">
         <div
           class="block max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
         >
@@ -25,8 +25,7 @@
       </div>
       <Card
         v-else
-        v-for="(item, index) in items"
-        :key="index"
+        v-for="(item, index) in state.items"
         :name="item.name"
         :count="item.count"
         :defaultCount="item.defaultCount"
@@ -38,83 +37,88 @@
   </div>
 </template>
 
-<script>
-import { reactive, toRefs, onMounted } from "vue";
+<script setup lang="ts">
+import { reactive, onMounted } from "vue";
 
-const App = {
-  setup() {
-    const state = reactive({
-      items: [],
-      loading: true,
-      today: new Date().toDateString(),
-    });
+interface Item {
+  name: string;
+  count: number;
+  date: string;
+  defaultCount: number;
+}
 
-    onMounted(() => {
-      const storedItems = JSON.parse(localStorage.getItem("items") || "[]");
-      const filteredItems = storedItems.filter(
-        (item) =>
-          new Date(item.date).getTime() >=
-          new Date().getTime() - 7 * 24 * 60 * 60 * 1000
-      );
-      filteredItems.forEach((item) => {
-        if (item.date !== state.today) {
-          item.count = item.defaultCount;
-        }
-      });
-      state.items = filteredItems;
-      state.loading = false;
-      localStorage.setItem("items", JSON.stringify(filteredItems));
-    });
+interface State {
+  items: Item[];
+  loading: boolean;
+  today: string;
+}
 
-    const handleAddItem = ({ newItem, newItemDefaultCount }) => {
-      const updatedItems = [
-        ...state.items,
-        {
-          name: newItem,
-          count: newItemDefaultCount,
-          date: state.today,
-          defaultCount: newItemDefaultCount,
-        },
-      ];
-      state.items = updatedItems;
-      localStorage.setItem("items", JSON.stringify(updatedItems));
-    };
+const state = reactive<State>({
+  items: [],
+  loading: true,
+  today: new Date().toDateString(),
+});
 
-    const handleIncrement = (index) => {
-      const updatedItems = [...state.items];
-      updatedItems[index].count += 1;
-      updatedItems[index].date = state.today;
-      state.items = updatedItems;
-      localStorage.setItem("items", JSON.stringify(updatedItems));
-    };
-
-    const handleDecrement = (index) => {
-      const updatedItems = [...state.items];
-      updatedItems[index].count -= 1;
-      updatedItems[index].date = state.today;
-      state.items = updatedItems;
-      localStorage.setItem("items", JSON.stringify(updatedItems));
-    };
-
-    const handleDelete = (index) => {
-      if (!confirm("Are you sure?")) {
-        return;
-      }
-      const updatedItems = [...state.items];
-      updatedItems.splice(index, 1);
-      state.items = updatedItems;
-      localStorage.setItem("items", JSON.stringify(updatedItems));
-    };
-
-    return {
-      ...toRefs(state),
-      handleAddItem,
-      handleIncrement,
-      handleDecrement,
-      handleDelete,
-    };
-  },
+const handleAddItem = ({
+  newItem,
+  newItemDefaultCount,
+}: {
+  newItem: string;
+  newItemDefaultCount: number;
+}) => {
+  const updatedItems: Item[] = [
+    ...state.items,
+    {
+      name: newItem,
+      count: newItemDefaultCount,
+      date: state.today,
+      defaultCount: newItemDefaultCount,
+    },
+  ];
+  state.items = updatedItems;
+  localStorage.setItem("items", JSON.stringify(updatedItems));
 };
 
-export default App;
+const handleIncrement = (index: number) => {
+  const updatedItems = [...state.items];
+  updatedItems[index].count += 1;
+  updatedItems[index].date = state.today;
+  state.items = updatedItems;
+  localStorage.setItem("items", JSON.stringify(updatedItems));
+};
+
+const handleDecrement = (index: number) => {
+  const updatedItems = [...state.items];
+  updatedItems[index].count -= 1;
+  updatedItems[index].date = state.today;
+  state.items = updatedItems;
+  localStorage.setItem("items", JSON.stringify(updatedItems));
+};
+
+const handleDelete = (index: number) => {
+  if (!confirm("Are you sure?")) {
+    return;
+  }
+  const updatedItems = [...state.items];
+  updatedItems.splice(index, 1);
+  state.items = updatedItems;
+  localStorage.setItem("items", JSON.stringify(updatedItems));
+};
+
+onMounted(() => {
+  const storedItems = JSON.parse(localStorage.getItem("items") || "[]");
+  const filteredItems = storedItems.filter(
+    (item: Item) =>
+      new Date(item.date).getTime() >=
+      new Date().getTime() - 7 * 24 * 60 * 60 * 1000
+  );
+  filteredItems.forEach((item: Item) => {
+    if (item.date !== state.today) {
+      item.count = item.defaultCount;
+    }
+  });
+  state.items = filteredItems;
+  state.loading = false;
+  localStorage.setItem("items", JSON.stringify(filteredItems));
+});
 </script>
