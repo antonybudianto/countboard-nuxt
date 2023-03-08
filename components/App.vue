@@ -3,9 +3,7 @@
     <div class="mb-4">
       <Form @onAddItem="handleAddItem" />
     </div>
-    <div
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-5"
-    >
+    <div class="grid grid-cols-1 gap-4 mb-5">
       <Loading v-if="state.loading" />
       <div v-if="state.items.length === 0">
         <div
@@ -23,22 +21,33 @@
           </p>
         </div>
       </div>
-      <Card
+      <draggable
         v-else
-        v-for="(item, index) in state.items"
-        :name="item.name"
-        :count="item.count"
-        :defaultCount="item.defaultCount"
-        @onDecrement="() => handleDecrement(index)"
-        @onIncrement="() => handleIncrement(index)"
-        @onDelete="() => handleDelete(index)"
-      />
+        v-model="state.items"
+        @start="drag = true"
+        @end="handleEnd"
+        item-key="id"
+      >
+        <template #item="{ element, index }">
+          <Card
+            :name="element.name"
+            :count="element.count"
+            :defaultCount="element.defaultCount"
+            @onDecrement="() => handleDecrement(index)"
+            @onIncrement="() => handleIncrement(index)"
+            @onDelete="() => handleDelete(index)"
+          />
+        </template>
+      </draggable>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import Draggable from "vuedraggable";
 import { reactive, onMounted } from "vue";
+
+const drag = ref(false);
 
 interface Item {
   name: string;
@@ -58,6 +67,13 @@ const state = reactive<State>({
   loading: true,
   today: new Date().toDateString(),
 });
+
+const handleEnd = () => {
+  drag.value = false;
+
+  const updatedItems = [...state.items];
+  localStorage.setItem("items", JSON.stringify(updatedItems));
+};
 
 const handleAddItem = ({
   newItem,

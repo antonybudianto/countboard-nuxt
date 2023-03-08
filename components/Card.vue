@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col justify-center bg-cyan-50 rounded shadow p-4 dark:bg-gray-800 dark:text-white"
+    class="flex flex-col justify-center mt-2 bg-cyan-50 rounded shadow p-4 dark:bg-gray-800 dark:text-white"
   >
     <div class="mb-4 select-none">{{ name }}:</div>
     <div class="flex justify-between">
