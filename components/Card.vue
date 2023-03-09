@@ -43,12 +43,19 @@
           +
         </button>
       </div>
-      <button
-        class="bg-gray-500 select-none ease-in hover:ease-out transition duration-150 hover:scale-110 hover:bg-gray-400 text-white px-4 py-2 rounded"
-        @click="onDelete"
-      >
-        X
-      </button>
+      <div class="flex justify-center items-center">
+        <button
+          class="bg-gray-500 select-none ease-in hover:ease-out transition duration-150 hover:scale-110 hover:bg-gray-400 text-white px-4 py-2 rounded"
+          @click="onDelete"
+        >
+          X
+        </button>
+        <button
+          class="drag-handle bg-gray-500 ml-1 md:ml-2 select-none ease-in hover:ease-out transition duration-150 hover:bg-gray-400 text-white px-4 py-2 rounded"
+        >
+          <img style="width: 10px; height: 24px" src="/icons/menu.png" />
+        </button>
+      </div>
     </div>
   </div>
 </template>

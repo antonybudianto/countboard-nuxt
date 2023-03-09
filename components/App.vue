@@ -24,6 +24,7 @@
       <draggable
         v-else
         v-model="state.items"
+        handle=".drag-handle"
         @start="drag = true"
         @end="handleEnd"
         item-key="id"
