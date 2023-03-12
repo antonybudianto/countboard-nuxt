@@ -2,7 +2,16 @@
   <div
     class="flex flex-col justify-center mt-2 bg-cyan-50 rounded shadow p-4 dark:bg-gray-800 dark:text-white"
   >
-    <div class="mb-4 select-none">{{ name }}:</div>
+    <div class="mb-4 select-none flex justify-between relative">
+      <div>{{ name }}:</div>
+      <div
+        class="font-bold px-2 bg-gray-500 rounded absolute cursor-pointer hover:bg-gray-400"
+        style="right: -15px; top: -15px"
+        @click="onDelete"
+      >
+        X
+      </div>
+    </div>
     <div class="flex justify-between">
       <div class="flex items-center justify-center">
         <button
@@ -44,16 +53,16 @@
         </button>
       </div>
       <div class="flex justify-center items-center">
-        <button
+        <!-- <button
           class="bg-gray-500 select-none ease-in hover:ease-out transition duration-150 hover:scale-110 hover:bg-gray-400 text-white px-4 py-2 rounded"
           @click="onDelete"
         >
           X
-        </button>
+        </button> -->
         <button
-          class="drag-handle bg-gray-500 ml-1 md:ml-2 select-none ease-in hover:ease-out transition duration-150 hover:bg-gray-400 text-white px-4 py-2 rounded"
+          class="drag-handle cursor-move bg-gray-500 ml-1 md:ml-2 select-none ease-in hover:ease-out transition duration-150 hover:bg-gray-400 text-white px-4 py-2 rounded"
         >
-          <img style="width: 10px; height: 24px" src="/icons/menu.png" />
+          <img style="width: 15px; height: 24px" src="/icons/menu.png" />
         </button>
       </div>
     </div>
@@ -87,4 +96,8 @@ const onDelete = () => {
 
 <style scoped>
 /* styles here */
+
+.flip-list-move {
+  transition: transform 0.5s;
+}
 </style>

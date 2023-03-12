@@ -25,6 +25,9 @@
         v-else
         v-model="state.items"
         handle=".drag-handle"
+        class="list-group"
+        tag="transition-group"
+        :component-data="{ tag: 'ul', name: 'flip-list', type: 'transition' }"
         @start="drag = true"
         @end="handleEnd"
         item-key="id"
@@ -43,6 +46,12 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+.flip-list-move {
+  transition: transform 0.5s;
+}
+</style>
 
 <script setup lang="ts">
 import Draggable from "vuedraggable";
