@@ -133,15 +133,17 @@ const handleDelete = (index: number) => {
 
 onMounted(() => {
   const storedItems = JSON.parse(localStorage.getItem("items") || "[]");
-  const filteredItems = storedItems.filter(
-    (item: Item) =>
-      new Date(item.date).getTime() >=
-      new Date().getTime() - 7 * 24 * 60 * 60 * 1000
-  );
-  filteredItems.forEach((item: Item) => {
-    if (item.date !== state.today) {
-      item.count = item.defaultCount;
+  // const filteredItems = storedItems.filter(
+  //   (item: Item) =>
+  //     new Date(item.date).getTime() >=
+  //     new Date().getTime() - 7 * 24 * 60 * 60 * 1000
+  // );
+  const filteredItems = storedItems.map((item: Item) => {
+    const newItem = { ...item };
+    if (newItem.date !== state.today) {
+      newItem.count = newItem.defaultCount;
     }
+    return newItem;
   });
   state.items = filteredItems;
   state.loading = false;
